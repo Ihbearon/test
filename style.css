@@ -28,3 +28,11 @@ p {
     font-size: 24px;
     margin-top: 20px;
 }
+#resetBtn {
+    background-color: #dc3545; /* A red color for reset */
+    margin-top: 10px;
+}
+
+#resetBtn:hover {
+    background-color: #a71d2a;
+}
