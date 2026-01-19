@@ -22,23 +22,25 @@
         </div>
     </div>
 
-    <div class="main-card">
-        <h1 class="counter-title">Click Master</h1>
-        <div class="score-container">
-            <span class="label">Current Clicks</span>
-            <span id="countDisplay" class="big-number">0</span>
+    <div class="game-container">
+        <div class="main-card">
+            <h1 class="counter-title">Click Master</h1>
+            <div class="score-container">
+                <span class="label">Current Clicks</span>
+                <span id="countDisplay" class="big-number">0</span>
+            </div>
+            <div class="action-buttons">
+                <button id="counterBtn" class="primary-btn">PUSH ME!</button>
+                <button id="resetBtn" class="reset-btn">Reset</button>
+            </div>
         </div>
-        
-        <div class="action-buttons">
-            <button id="counterBtn" class="primary-btn">PUSH ME!</button>
-            <button id="resetBtn" class="reset-btn">Reset</button>
-        </div>
-    </div>
 
-    <div class="leaderboard-section">
-        <h3>🏆 Global Leaderboard</h3>
-        <ul id="leaderboard"></ul>
+        <div class="leaderboard-section">
+            <h3>🏆 Global Leaderboard</h3>
+            <ul id="leaderboard"></ul>
+        </div>
     </div>
+</div>
 </div>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
