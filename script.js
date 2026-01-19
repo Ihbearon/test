@@ -21,7 +21,7 @@ const button = document.getElementById('counterBtn');
 const display = document.getElementById('countDisplay');
 const resetBtn = document.getElementById('resetBtn');
 const loginBtn = document.getElementById('loginBtn');
-
+const logoutBtn = document.getElementById('logoutBtn');
 // 4. Handle Login
 loginBtn.addEventListener('click', () => {
     const email = document.getElementById('email').value;
@@ -38,6 +38,14 @@ auth.onAuthStateChanged(user => {
         document.getElementById('gameSection').style.display = 'block';
         document.getElementById('welcomeText').innerText = `Hello, ${user.email}`;
         loadLeaderboard();
+    } else {
+        // Show login screen and hide game screen when logged out
+        document.getElementById('loginSection').style.display = 'block';
+        document.getElementById('gameSection').style.display = 'none';
+        
+        // Reset the local click counter for the next user
+        count = 0;
+        display.innerHTML = count;
     }
 });
 
@@ -94,3 +102,11 @@ function loadLeaderboard() {
         });
     });
 }
+logoutBtn.addEventListener('click', () => {
+    auth.signOut().then(() => {
+        // This will trigger onAuthStateChanged automatically
+        console.log("User signed out");
+    }).catch((error) => {
+        console.error("Logout Error:", error);
+    });
+});
