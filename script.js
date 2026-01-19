@@ -66,10 +66,20 @@ function loadLeaderboard() {
     db.ref('leaderboard').orderByChild('score').limitToLast(5).on('value', snapshot => {
         const list = document.getElementById('leaderboard');
         list.innerHTML = '';
+        
+        let isFirst = true; // Track the top scorer
+        
         snapshot.forEach(child => {
             const item = document.createElement('li');
-            item.innerText = `${child.val().name}: ${child.val().score}`;
-            list.prepend(item);
+            const data = child.val();
+            
+            // If this is the top person, add the crown
+            const crown = isFirst ? " 👑" : ""; 
+            
+            item.innerHTML = `<span>${data.name}${crown}</span> <strong>${data.score}</strong>`;
+            list.prepend(item); // Put highest score at the top
+            
+            isFirst = false; // Only the first one gets the crown
         });
     });
 }
