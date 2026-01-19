@@ -22,6 +22,7 @@ const display = document.getElementById('countDisplay');
 const resetBtn = document.getElementById('resetBtn');
 const loginBtn = document.getElementById('loginBtn');
 const logoutBtn = document.getElementById('logoutBtn');
+const deleteBtn = document.getElementById('deleteAccountBtn');
 // 4. Handle Login
 loginBtn.addEventListener('click', () => {
     const email = document.getElementById('email').value;
@@ -34,16 +35,17 @@ loginBtn.addEventListener('click', () => {
 // 5. Update UI when user logs in
 auth.onAuthStateChanged(user => {
     if (user) {
+        // Logged In: Show Game, Hide Login
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('gameSection').style.display = 'block';
         document.getElementById('welcomeText').innerText = `Hello, ${user.email}`;
         loadLeaderboard();
     } else {
-        // Show login screen and hide game screen when logged out
-        document.getElementById('loginSection').style.display = 'block';
+        // Logged Out: Show Login, Hide Game
+        document.getElementById('loginSection').style.display = 'flex'; 
         document.getElementById('gameSection').style.display = 'none';
         
-        // Reset the local click counter for the next user
+        // Reset the local click counter for the next person
         count = 0;
         display.innerHTML = count;
     }
@@ -104,9 +106,29 @@ function loadLeaderboard() {
 }
 logoutBtn.addEventListener('click', () => {
     auth.signOut().then(() => {
-        // This will trigger onAuthStateChanged automatically
-        console.log("User signed out");
+        console.log("Sign-out successful.");
     }).catch((error) => {
-        console.error("Logout Error:", error);
+        console.error("Sign-out error:", error);
     });
+});
+deleteBtn.addEventListener('click', () => {
+    if (confirm("Are you sure? This will delete your account and your high score forever.")) {
+        const user = auth.currentUser;
+        const userId = user.uid;
+
+        // 1. Remove their data from the database
+        db.ref('leaderboard/' + userId).remove()
+            .then(() => {
+                // 2. Delete the user authentication account
+                return user.delete();
+            })
+            .then(() => {
+                console.log("Account and data deleted successfully.");
+                // The onAuthStateChanged listener will automatically show the login screen
+            })
+            .catch((error) => {
+                console.error("Error deleting account:", error);
+                alert("Please log out and log back in to verify your identity before deleting your account.");
+            });
+    }
 });
