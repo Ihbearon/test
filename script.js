@@ -52,29 +52,34 @@ auth.onAuthStateChanged(user => {
 });
 
 // 6. Handle Clicks & Save to Database
+// 6. Handle Clicks & Save to Database
 button.addEventListener('click', () => {
     count++;
     display.innerHTML = count;
-    
+
+    // Animation logic
+    display.classList.remove('pop-animation');
+    void display.offsetWidth; 
+    display.classList.add('pop-animation');
+
+    // MOVED INSIDE: The database logic must be inside the click listener
     if (auth.currentUser) {
         const userId = auth.currentUser.uid;
         const userRef = db.ref('leaderboard/' + userId);
 
-        // Check the existing score before saving
         userRef.once('value').then((snapshot) => {
             const currentData = snapshot.val();
             const existingHighScore = currentData ? currentData.score : 0;
 
-            // Only update the database if the new count is higher
             if (count > existingHighScore) {
                 userRef.set({
-                    name: document.getElementById('username').value || auth.currentUser.email, // Or your custom name variable
+                    name: document.getElementById('username').value || auth.currentUser.email,
                     score: count
                 });
             }
         });
     }
-});
+}); // This is where the click listener should finally close
 
 // 7. Handle Reset
 resetBtn.addEventListener('click', () => {
