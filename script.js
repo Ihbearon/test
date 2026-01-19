@@ -1,3 +1,22 @@
+// Paste the config you copied from Firebase here
+const firebaseConfig = {const firebaseConfig = {
+  apiKey: "AIzaSyCGnHOcQHYo5-Pl1xYEHR8RP11Y7H0krkg",
+  authDomain: "button-clicker-8cc95.firebaseapp.com",
+  databaseURL: "https://button-clicker-8cc95-default-rtdb.firebaseio.com",
+  projectId: "button-clicker-8cc95",
+  storageBucket: "button-clicker-8cc95.firebasestorage.app",
+  messagingSenderId: "1020622365359",
+  appId: "1:1020622365359:web:6ae5a32db488dd27e8ea5a",
+  measurementId: "G-YG9920VMGG"
+};
+  // ... your actual details ...
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Get a reference to the database service
+const database = firebase.database();
 let count = 0;
 const button = document.getElementById('counterBtn');
 const display = document.getElementById('countDisplay');
