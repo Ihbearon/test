@@ -12,18 +12,33 @@
     <button id="loginBtn">Login / Sign Up</button>
 </div>
 
-    <div id="gameSection" style="display:none;">
-    <h2 id="welcomeText"></h2>
-    <button id="logoutBtn" style="background-color: #6c757d; margin-bottom: 10px;">Logout</button>
-    <button id="deleteAccountBtn" style="background-color: #dc3545; margin-top: 10px;">Delete Account</button>
-    <button id="counterBtn">Push Me!</button>
-    <p>Your Clicks: <span id="countDisplay">0</span></p>
-    <button id="resetBtn">Reset</button>
-    <hr>
-    <h3>Leaderboard (Top Clicks)</h3>
-    <ul id="leaderboard"></ul>
-</div>
+  <div id="gameSection" style="display:none;">
+    <div class="nav-bar">
+        <span id="welcomeText"></span>
+        <div class="auth-buttons">
+            <button id="logoutBtn" class="secondary-btn">Logout</button>
+            <button id="deleteAccountBtn" class="danger-link">Delete Account</button>
+        </div>
+    </div>
 
+    <div class="main-card">
+        <h1 class="counter-title">Click Master</h1>
+        <div class="score-container">
+            <span class="label">Current Clicks</span>
+            <span id="countDisplay" class="big-number">0</span>
+        </div>
+        
+        <div class="action-buttons">
+            <button id="counterBtn" class="primary-btn">PUSH ME!</button>
+            <button id="resetBtn" class="reset-btn">Reset</button>
+        </div>
+    </div>
+
+    <div class="leaderboard-section">
+        <h3>🏆 Global Leaderboard</h3>
+        <ul id="leaderboard"></ul>
+    </div>
+</div>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
