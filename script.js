@@ -53,16 +53,27 @@ auth.onAuthStateChanged(user => {
 
 // 6. Handle Clicks & Save to Database
 // 6. Handle Clicks & Save to Database
+// 6. Handle Clicks & Save to Database
 button.addEventListener('click', () => {
     count++;
     display.innerHTML = count;
+
+    // Confetti Milestone logic
+    if (count > 0 && count % 100 === 0) {
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#4f46e5', '#fbbf24', '#ef4444']
+        }); // ADD THIS CLOSING BRACKET AND PARENTHESIS HERE
+    }
 
     // Animation logic
     display.classList.remove('pop-animation');
     void display.offsetWidth; 
     display.classList.add('pop-animation');
 
-    // MOVED INSIDE: The database logic must be inside the click listener
+    // Database logic
     if (auth.currentUser) {
         const userId = auth.currentUser.uid;
         const userRef = db.ref('leaderboard/' + userId);
@@ -79,8 +90,7 @@ button.addEventListener('click', () => {
             }
         });
     }
-}); // This is where the click listener should finally close
-
+}); // Ensure this final closing bracket is present
 // 7. Handle Reset
 resetBtn.addEventListener('click', () => {
     count = 0;
