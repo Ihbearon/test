@@ -58,7 +58,7 @@ button.addEventListener('click', () => {
             // Only update the database if the new count is higher
             if (count > existingHighScore) {
                 userRef.set({
-                    name: auth.currentUser.email, // Or your custom name variable
+                    name: document.getElementById('username').value || auth.currentUser.email, // Or your custom name variable
                     score: count
                 });
             }
