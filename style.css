@@ -80,3 +80,12 @@ button {
     border: 2px solid #fbbf24;
     background: #fffbeb;
 }
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); color: #6366f1; }
+    100% { transform: scale(1); }
+}
+
+.pop-animation {
+    animation: pop 0.2s ease-out;
+}
