@@ -48,9 +48,20 @@ button.addEventListener('click', () => {
     
     if (auth.currentUser) {
         const userId = auth.currentUser.uid;
-        db.ref('leaderboard/' + userId).set({
-            name: auth.currentUser.email,
-            score: count
+        const userRef = db.ref('leaderboard/' + userId);
+
+        // Check the existing score before saving
+        userRef.once('value').then((snapshot) => {
+            const currentData = snapshot.val();
+            const existingHighScore = currentData ? currentData.score : 0;
+
+            // Only update the database if the new count is higher
+            if (count > existingHighScore) {
+                userRef.set({
+                    name: auth.currentUser.email, // Or your custom name variable
+                    score: count
+                });
+            }
         });
     }
 });
