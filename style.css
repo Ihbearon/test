@@ -61,8 +61,12 @@ p {
     max-width: 300px;
 }
 
+#leaderboard li:first-child {
+    border: 2px solid #ffd700; /* Gold border for 1st place */
+    background: #fffdf0;
+}
+
 #leaderboard li {
-    background: #fff;
     margin: 5px 0;
     padding: 10px;
     border-radius: 5px;
