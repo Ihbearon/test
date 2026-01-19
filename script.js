@@ -88,19 +88,24 @@ function loadLeaderboard() {
         const list = document.getElementById('leaderboard');
         list.innerHTML = '';
         
-        let isFirst = true; // Track the top scorer
-        
+        // Convert snapshot to an array to easily find the last (highest) item
+        const entries = [];
         snapshot.forEach(child => {
+            entries.push(child.val());
+        });
+
+        // Loop through the entries
+        entries.forEach((data, index) => {
             const item = document.createElement('li');
-            const data = child.val();
             
-            // If this is the top person, add the crown
-            const crown = isFirst ? " 👑" : ""; 
+            // The LAST item in the array is the highest score
+            const isHighest = (index === entries.length - 1);
+            const crown = isHighest ? " 👑" : ""; 
             
             item.innerHTML = `<span>${data.name}${crown}</span> <strong>${data.score}</strong>`;
-            list.prepend(item); // Put highest score at the top
             
-            isFirst = false; // Only the first one gets the crown
+            // Put the highest score at the top of the visual list
+            list.prepend(item); 
         });
     });
 }
