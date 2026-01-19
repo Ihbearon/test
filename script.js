@@ -88,23 +88,22 @@ function loadLeaderboard() {
         const list = document.getElementById('leaderboard');
         list.innerHTML = '';
         
-        // Convert snapshot to an array to easily find the last (highest) item
         const entries = [];
         snapshot.forEach(child => {
             entries.push(child.val());
         });
 
-        // Loop through the entries
+        // Entries are sorted lowest to highest by Firebase
         entries.forEach((data, index) => {
             const item = document.createElement('li');
             
-            // The LAST item in the array is the highest score
+            // Apply the crown only to the last item in the array (the highest score)
             const isHighest = (index === entries.length - 1);
             const crown = isHighest ? " 👑" : ""; 
             
             item.innerHTML = `<span>${data.name}${crown}</span> <strong>${data.score}</strong>`;
             
-            // Put the highest score at the top of the visual list
+            // We prepend so the highest score ends up at the top of the visual list
             list.prepend(item); 
         });
     });
